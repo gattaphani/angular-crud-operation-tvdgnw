@@ -1,0 +1,88 @@
+<form [formGroup]="studentForm" (ngSubmit)="add(studentForm)">
+  <div class="form-group">
+    <input type="text" formControlName="name" name="name" placeholder="Name" />
+  </div>
+  <div class="form-group">
+    <input
+      type="text"
+      formControlName="id"
+      name="id"
+      placeholder="Student ID"
+    />
+  </div>
+  <div class="form-group">
+    <!-- <input 
+          type="text" 
+          class="form-control w-100" 
+          formControlName="gender" 
+          name="gender" 
+          placeholder="Gender"> -->
+    <input
+      type="radio"
+      formControlName="gender"
+      name="gender"
+      value="male"
+    />Male
+    <input
+      type="radio"
+      formControlName="gender"
+      name="gender"
+      value="female"
+    />Female
+  </div>
+  <div class="form-group">
+    <!-- <input
+      type="text"
+      formControlName="address"
+      name="address"
+      placeholder="Address"
+    /> -->
+    <select
+      id="country"
+      name="country"
+      class="form-select"
+      formControlName="country"
+      placeholder="country"
+    >
+      <option [ngValue]="c.id" *ngFor="let c of countryList">
+        {{ c.name }}
+      </option>
+    </select>
+    <select
+      id="city"
+      name="city"
+      class="form-select"
+      formControlName="city"
+      placeholder="city"
+    >
+      <option [ngValue]="c.id" *ngFor="let city of cities">
+        {{ city.name }}
+      </option>
+    </select>
+  </div>
+  <button type="submit">Add</button>
+</form>
+
+<div class="container">
+  <table class="table" border="=1">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Address</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of student; let i = index">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.gender }}</td>
+        <td>{{ item.address }}</td>
+        <td><button (click)="edit(item, i)">Edit</button></td>
+        <td><button (click)="delete(i)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
