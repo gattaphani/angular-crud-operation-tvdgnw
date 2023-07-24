@@ -1,11 +1,12 @@
+<h2>Student Form</h2>
 <form [formGroup]="studentForm" (ngSubmit)="add(studentForm)">
   <div class="form-group">
     <input type="text" formControlName="name" name="name" placeholder="Name" />
   </div>
   <div class="form-group">
     <input
-      type="text"
-      formControlName="id"
+      type="number"
+      formControlName="stu_id"
       name="id"
       placeholder="Student ID"
     />
@@ -37,30 +38,55 @@
       name="address"
       placeholder="Address"
     /> -->
+    <label for="city">Country</label>
     <select
       id="country"
       name="country"
       class="form-select"
       formControlName="country"
       placeholder="country"
+      (change)="onSelectCountry($event.target.value)"
     >
-      <option [ngValue]="c.id" *ngFor="let c of countryList">
+      <option value={{c.id}} *ngFor="let c of countryList">
         {{ c.name }}
       </option>
     </select>
-    <select
-      id="city"
-      name="city"
-      class="form-select"
-      formControlName="city"
-      placeholder="city"
-    >
-      <option [ngValue]="c.id" *ngFor="let city of cities">
-        {{ city.name }}
-      </option>
-    </select>
+
+    <div formGroupName="address">
+      <div class="form-group">
+        <label for="city">State</label>
+        <select
+          id="State"
+          name="State"
+          class="form-select"
+          formControlName="state"
+          placeholder="State"
+          (change)="onSelectState($event.target.value)"
+        >
+          <option value={{st.country_id}} *ngFor="let st of dropdownState">
+            {{ st.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="city">City</label>
+        <select
+          id="city"
+          name="city"
+          class="form-select"
+          formControlName="city"
+          placeholder="city"
+          (change)="onSelectCity($event.target.value)"
+        >
+          <option value={{c.state}} *ngFor="let c of dropdownCity">
+            {{ c.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <button type="submit">Add</button>
   </div>
-  <button type="submit">Add</button>
 </form>
 
 <div class="container">
@@ -76,7 +102,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of student; let i = index">
-        <td>{{ item.id }}</td>
+        <td>{{ item.stu_id }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.gender }}</td>
         <td>{{ item.address }}</td>
